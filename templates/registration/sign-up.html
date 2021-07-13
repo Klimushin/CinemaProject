@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <style>
+        body {
+            width: 400px;
+            text-align: center;
+            margin: 0 auto;
+        }</style>
+    <div class="form-group">
+        <h2>{% translate 'Create new account' %}</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <button class="btn btn-primary" type="submit">{% translate 'Register' %}</button>
+            <small class='text-muted'>
+                {% translate 'Already have an account?' %} <a
+                    href="{% url 'user:login' %}">{% translate 'Sign In' %} </a> </small>
+        </form>
+    </div>
+{% endblock %}

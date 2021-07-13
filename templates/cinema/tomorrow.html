@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load mathfilters %}
+{% block titles %}{% translate 'Tomorrow session' %}{% endblock %}
+
+{% block content %}
+    <a href="{% url 'cinema:today' %}">{% translate "Today session" %}</a>
+    {% if user.is_authenticated %}
+        <div>
+            <form>
+                {{ filter }}
+                <input type="submit" value="{% translate 'filter' %}">
+            </form>
+        </div>
+    {% endif %}
+    {% if messages %}
+        {% for message in messages %}
+            <p style="color: red;">{{ message|safe }}</p>
+        {% endfor %}
+    {% endif %}
+    {% for session in object_list %}
+        <div>
+            <form method="post" action="{% url 'cinema:create_ticket' %}">
+                {% csrf_token %}
+                <p>{% translate 'Hall' %}: {{ session.hall.name }}
+                    {% if user.is_superuser %}
+                        <a href="{% url 'cinema:update_hall' session.hall.slug %}">{% translate 'Change hall' %}</a><p>
+                        <br>
+                    {% endif %}
+                    {% translate 'Free places' %}: {{ session.hall.size|sub:session.total }}<br>
+                    {% translate 'Time' %}: {{ session.start_time|time:"H:i" }} - {{ session.end_time|time:"H:i" }}<br>
+                    {% translate 'Show date' %}: {{ session.get_show_date }}<br>
+                    {% translate 'Ticket price' %}: {{ session.price }}<br>
+                    {% if user.is_authenticated %}
+                        {{ quantity.quantity }}
+                        <input type="hidden" name="session" value='{{ session.pk }}'>
+                        <input type="submit" value="{% translate 'Buy' %}">
+                    {% endif %}
+                    {% if user.is_superuser %}
+                        <a href="{% url 'cinema:update_session' session.pk %}">{% translate 'Change session' %}</a>
+                    {% endif %}
+            </form>
+        </div>
+    {% endfor %}
+{% endblock %}

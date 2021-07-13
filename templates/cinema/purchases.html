@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block titles %}{% translate 'User profile' %}{% endblock %}
+
+{% block content %}
+    <h1>{% translate 'User name' %}: {{ user }} </h1><br>
+    <h3>{% translate 'Total price' %}: {{ user.balance }} </h3> <br>
+    {% for ticket in object_list %}
+        <div>
+            {% translate 'Hall' %}: {{ ticket.session.hall.name }} <br>
+            {% translate 'Session' %}: {{ ticket.session }} <br>
+            {% translate 'Ticket price' %}: {{ ticket.session.price }} <br>
+            {% translate 'Ticket quantity' %}: {{ ticket.quantity }} <br>
+            {% translate 'Show date' %}: {{ ticket.session.get_show_date }}
+        </div> <br>
+    {% endfor %}
+{% endblock %}

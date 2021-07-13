@@ -1,0 +1,47 @@
+{% load i18n %}
+<style>
+    body {
+        padding-top: 65px;
+    }
+
+    h6 {
+        color: white;
+        padding-right: 3px;
+    }
+
+</style>
+<header>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/">CINEMA</a>
+            <div class="d-block" id="navbarText">
+                <ul class="navbar-nav mr-auto">
+                    {% if user.is_authenticated %}
+                        <a class="navbar-brand"> {% translate "Hello," %} {{ user }} </a>
+                        <li class="nav-item"><a href="{% url "user:logout" %}"
+                                                class="nav-link">{% translate 'Logout' %}</a></li>
+
+                        <li class="nav-item"><a href="{% url 'user:purchases' %}"
+                                                class="nav-link">{% translate 'My purchase' %}</a></li>
+                        <ul class="navbar-nav mr-auto">
+                            {% if user.is_superuser %}
+                                <li class="nav-item"><a
+                                        href="{% url 'cinema:create_hall' %}"
+                                        class="nav-link">{% translate 'Create hall' %}</a></li>
+                                <li class="nav-item"><a
+                                        href="{% url 'cinema:create_session' %}"
+                                        class="nav-link">{% translate 'Create session' %}</a>
+                                </li>
+                            {% endif %}
+                        </ul>
+                        </ul>
+                        </div>
+                    {% else %}
+                        <li class="nav-item"><a href="{% url 'user:login' %}"
+                                                class="nav-link">{% translate 'Login' %}</a></li>
+                        <li class="nav-item"><a href="{% url 'user:register' %}"
+                                                class="nav-link">{% translate 'Register' %}</a></li>
+                    {% endif %}
+        </div>
+    </nav>
+</header>
