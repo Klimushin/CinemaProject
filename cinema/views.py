@@ -55,6 +55,8 @@ class SessionListView(ListView):
 class TomorrowSessionListView(ListView):
     model = Session
     template_name = 'cinema/tomorrow.html'
+    context_object_name = 'sessions'
+    extra_context = {'quantity': TicketForm}
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

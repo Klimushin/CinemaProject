@@ -25,14 +25,13 @@
                 <p>{% translate 'Hall' %}: {{ session.hall.name }}
                     {% if user.is_superuser %}
                         <a href="{% url 'cinema:update_hall' session.hall.slug %}">{% translate 'Change hall' %}</a><p>
-                        <br>
-                    {% endif %}
+                    {% endif %}<br>
                     {% translate 'Free places' %}: {{ session.hall.size|sub:session.total }}<br>
                     {% translate 'Time' %}: {{ session.start_time|time:"H:i" }} - {{ session.end_time|time:"H:i" }}<br>
                     {% translate 'Show date' %}: {{ session.get_show_date }}<br>
                     {% translate 'Ticket price' %}: {{ session.price }}<br>
                     {% if user.is_authenticated %}
-                        {{ quantity.quantity }}
+                        {{ quantity }}
                         <input type="hidden" name="session" value='{{ session.pk }}'>
                         <input type="submit" value="{% translate 'Buy' %}">
                     {% endif %}
