@@ -12,7 +12,7 @@
                 <input type="submit" value="{% translate 'filter' %}">
             </form>
         </div>
-    {% endif %}
+    {% endif %} <br>
     {% if messages %}
         {% for message in messages %}
             <p style="color: red;">{{ message|safe }}</p>
@@ -25,7 +25,7 @@
                 <p>{% translate 'Hall' %}:  {{ session.hall.name }}
                     {% if user.is_superuser %}
                         <a href="{% url 'cinema:update_hall' session.hall.slug %}">{% translate 'Change hall' %}</a></p>
-                    {% endif %}<br>
+                    {% endif %}
                 {% translate 'Free places' %}: {{ session.hall.size|sub:session.total }}<br>
                 {% translate 'Time' %}: {{ session.start_time|time:"H:i" }} - {{ session.end_time|time:"H:i" }}<br>
                 {% translate 'Show date' %}: {{ session.get_show_date }}<br>
@@ -38,7 +38,7 @@
                 {% if user.is_superuser %}
                     <a href="{% url 'cinema:update_session' session.pk %}">{% translate 'Change session' %}</a>
                 {% endif %}
-            </form>
+            </form>  <br>
         </div>
     {% endfor %}
 {% endblock %}

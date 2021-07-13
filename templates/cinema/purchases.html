@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load i18n %}
-
+{% load mathfilters %}
 {% block titles %}{% translate 'User profile' %}{% endblock %}
 
 {% block content %}
@@ -12,6 +12,8 @@
             {% translate 'Session' %}: {{ ticket.session }} <br>
             {% translate 'Ticket price' %}: {{ ticket.session.price }} <br>
             {% translate 'Ticket quantity' %}: {{ ticket.quantity }} <br>
+            {% translate 'Show time' %}: {{ ticket.session.start_time|time:"H:i" }}
+            - {{ ticket.session.end_time|time:"H:i" }}<br>
             {% translate 'Show date' %}: {{ ticket.session.get_show_date }}
         </div> <br>
     {% endfor %}

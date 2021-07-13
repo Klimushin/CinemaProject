@@ -4,14 +4,14 @@
 {% block titles %}{% translate 'Tomorrow session' %}{% endblock %}
 
 {% block content %}
-    <a href="{% url 'cinema:today' %}">{% translate "Today session" %}</a>
+    <a href="{% url 'cinema:today' %}">{% translate "Home" %}</a>
     {% if user.is_authenticated %}
         <div>
             <form>
                 {{ filter }}
                 <input type="submit" value="{% translate 'filter' %}">
             </form>
-        </div>
+        </div>  <br>
     {% endif %}
     {% if messages %}
         {% for message in messages %}
@@ -25,7 +25,7 @@
                 <p>{% translate 'Hall' %}: {{ session.hall.name }}
                     {% if user.is_superuser %}
                         <a href="{% url 'cinema:update_hall' session.hall.slug %}">{% translate 'Change hall' %}</a><p>
-                    {% endif %}<br>
+                    {% endif %}
                     {% translate 'Free places' %}: {{ session.hall.size|sub:session.total }}<br>
                     {% translate 'Time' %}: {{ session.start_time|time:"H:i" }} - {{ session.end_time|time:"H:i" }}<br>
                     {% translate 'Show date' %}: {{ session.get_show_date }}<br>
@@ -34,7 +34,7 @@
                         {{ quantity }}
                         <input type="hidden" name="session" value='{{ session.pk }}'>
                         <input type="submit" value="{% translate 'Buy' %}">
-                    {% endif %}
+                    {% endif %}  <br>
                     {% if user.is_superuser %}
                         <a href="{% url 'cinema:update_session' session.pk %}">{% translate 'Change session' %}</a>
                     {% endif %}
