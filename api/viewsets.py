@@ -1,4 +1,4 @@
-from rest_framework import generics, viewsets, permissions
+from rest_framework import generics, viewsets
 
 from api.serializers import HallSerializer, SessionSerializer, TicketSerializer
 from cinema.models import Hall, Session, Ticket
@@ -14,14 +14,14 @@ from rest_framework.status import (
     HTTP_200_OK,
 )
 from rest_framework.response import Response
-from api.serializers import CustomerSerializer, CustomerLoginSerializer
+from api.serializers import CustomerRegisterSerializer, CustomerLoginSerializer
 
 from api.authentication import token_expire_handler, expires_in
 
 
 class UserRegisterAPIView(generics.CreateAPIView):
     queryset = Customer.objects.all()
-    serializer_class = CustomerSerializer
+    serializer_class = CustomerRegisterSerializer
 
 
 class HallViewSet(viewsets.ModelViewSet):
@@ -63,7 +63,7 @@ def signin(request):
 
     # token_expire_handler will check, if the token is expired it will generate new one
     is_expired, token = token_expire_handler(token)  # The implementation will be described further
-    user_serialized = CustomerSerializer(user)
+    user_serialized = CustomerRegisterSerializer(user)
 
     return Response({
         'user': user_serialized.data,
