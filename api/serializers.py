@@ -32,12 +32,13 @@ class CustomerRegisterSerializer(serializers.ModelSerializer):
 
 
 class CustomerLoginSerializer(serializers.ModelSerializer):
-    username = serializers.CharField(required=True)
-    password = serializers.CharField(required=True)
+    username = serializers.CharField(write_only=True, required=True, )
+    password = serializers.CharField(write_only=True, required=True, )
 
     class Meta:
         model = Customer
         fields = ('username', 'password')
+
 
 
 class HallSerializer(serializers.ModelSerializer):
